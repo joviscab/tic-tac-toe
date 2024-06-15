@@ -18,7 +18,7 @@ const gameBoard = {
     },
 
     //player square selection
-    playerSelection(index, mark) {
+    playerMove: function(index, mark) {
         if (index >= 0 && index < this.board.length && typeof this.board[index] === 'number') {
             this.board[index] = mark;
         } else {
@@ -28,32 +28,44 @@ const gameBoard = {
 };
 
 
-
-
 //players object
-function newPlayer (name) {
-    const playerOneName = name;
-    const playerTwoName = name;
+const playerManager = {
+    create(name) {
+        let score = 0;
 
-    let score = 0;
-    const getScore = () => score;
-    const addScore = () => score++;
+        return {
+            name,
+            getScore() {
+                return score;
+            },
+            addScore() {
+                score++;
+            }
+        };
+    },
 
-    return {playerOneName, playerTwoName, getScore, addScore};
-}
+    //initialize players
+    initializePlayers() {
+        const playerOneName = prompt("Enter Player 1 name:");
+        const playerTwoName = prompt("Enter Player 2 name:");
 
-const playerOneName = prompt("Enter player 1 name:");
-const playerTwoName = prompt("Enter player 2 name:");
+        const playerOne = this.create(playerOneName);
+        const playerTwo = this.create(playerTwoName);
 
-const playerOne = newPlayer(playerOneName);
-const playerTwo = newPlayer(playerTwoName);
+        playerOne.addScore();
+        playerOne.addScore();
+        playerTwo.addScore();
 
-playerOne.addScore();
-playerOne.addScore();
-playerTwo.addScore();
+        console.log({ playerOneName: playerOne.name, score: playerOne.getScore() });
+        console.log({ playerTwoName: playerTwo.name, score: playerTwo.getScore() });
 
-console.log({playerOneName: playerOne.playerOneName, score: playerOne.getScore()});
-console.log({playerTwoName: playerTwo.playerTwoName, score: playerTwo.getScore()});
+    }
+};
+
+playerManager.initializePlayers();
+
+
+
 
 //game object
 function playRound () {
