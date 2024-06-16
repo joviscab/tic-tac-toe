@@ -52,12 +52,12 @@ const playerManager = {
         const playerOne = this.create(playerOneName);
         const playerTwo = this.create(playerTwoName);
 
-        //playerOne.addScore();
-        //playerOne.addScore();
-        //playerTwo.addScore();
+        playerOne.addScore();
+        playerOne.addScore();
+        playerTwo.addScore();
 
-        //console.log({ playerOneName: playerOne.name, score: playerOne.getScore() });
-        //console.log({ playerTwoName: playerTwo.name, score: playerTwo.getScore() });
+        console.log({ playerOneName: playerOne.name, score: playerOne.getScore() });
+        console.log({ playerTwoName: playerTwo.name, score: playerTwo.getScore() });
 
     }
 };
