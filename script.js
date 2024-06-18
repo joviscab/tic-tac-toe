@@ -21,7 +21,7 @@ const gameBoard = {
     playerMove: function(index, mark) {
         if (index >= 0 && index < this.board.length && typeof this.board[index] === 'number') {
             this.board[index] = mark;
-            document.getElementById(`cell-${index}`).textContent = mark;
+            document.getElementById(`cell-${index}`).textContent = mark; // Update the cell content
         } else {
             console.log("Invalid move");
         }
@@ -38,7 +38,7 @@ const gameBoard = {
         for (const pattern of winPatterns) {
             const [a, b, c] = pattern;
             if (this.board[a] === this.board[b] && this.board[a] === this.board[c] && typeof this.board[a] === 'string') {
-               return this.board[a]; 
+                return this.board[a]; 
             }
         }
 
@@ -125,44 +125,46 @@ const game = {
     //start one round
     playRound() {
         this.initializePlayers();
+        gameBoard.updateDisplay();
 
-        while (true) {
-            gameBoard.printBoard();
-
-            const index = parseInt(prompt(`${this.currentPlayer.name}, enter your move (0-8):`), 10);
-
+        const cellClickHandler = (event) => {
+            const index = parseInt(event.target.id.split('-')[1]);
             gameBoard.playerMove(index, this.currentMark);
-
             const winner = gameBoard.checkWin();
             if (winner) {
                 gameBoard.printBoard();
                 if (winner === 'tie') {
-                    console.log("It's a tie!");
+                    alert("It's a tie!");
                 } else {
-                    console.log(`${this.currentPlayer.name} wins!`);
+                    alert(`${this.currentPlayer.name} wins!`);
                     this.currentPlayer.addScore();
+                    document.getElementById('player1-score').textContent = `${this.playerOne.name}: ${this.playerOne.getScore()}`;
+                    document.getElementById('player2-score').textContent = `${this.playerTwo.name}: ${this.playerTwo.getScore()}`;
                 }
-
-                console.log({playerOneName: this.playerOne.name, score: this.playerOne.getScore()});
-                console.log({playerTwoName: this.playerTwo.name, score: this.playerTwo.getScore()});
-
-                gameBoard.resetBoard ();
 
                 if (confirm("Do you want to play another round?")) {
+                    gameBoard.resetBoard();
                     this.currentPlayer = this.playerOne;
                     this.currentMark = gameBoard.playerOneMark;
-                    continue;
                 } else {
-                    break;
+                    document.querySelectorAll('.cell').forEach(cell => cell.removeEventListener('click', cellClickHandler));
                 }
+            } else {
+                this.switchPlayer();
             }
+        };
 
-            this.switchPlayer();
-        }
+        document.querySelectorAll('.cell').forEach(cell => {
+            cell.addEventListener('click', cellClickHandler);
+        });
+
+        document.getElementById('newgame-button').addEventListener('click', () => {
+            gameBoard.resetBoard();
+            this.currentPlayer = this.playerOne;
+            this.currentMark = gameBoard.playerOneMark;
+        });
     }
 };
 
 //start game
-//game.playRound();
-
-//display DOM object
+game.playRound();
