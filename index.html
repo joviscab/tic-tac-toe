@@ -5,19 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="container">
         <div id="title-bar">
-            <div><h1>Tic Tac Toe</h1></div>
+            <h1>TIC TAC TOE</h1>
         </div>
         <div id="main-content">
             <div id="game-display">
-                <div><p>GAME DISPLAY</p></div>
+                <div id="display-result">
+                    <p>GAME DISPLAY</p>
+                </div>
             </div>
             <div id="game-board">
-                    <div class="cell" id="cell-0"><p>0</p></div>
-                    <div class="cell" id="cell-1"><p>1</p></div>
+                    <div class="cell" id="cell-0"><p>o</p></div>
+                    <div class="cell" id="cell-1"><p>x</p></div>
                     <div class="cell" id="cell-2"><p>2</p></div>
                     <div class="cell" id="cell-3"><p>3</p></div>
                     <div class="cell" id="cell-4"><p>4</p></div>
@@ -27,10 +32,19 @@
                     <div class="cell" id="cell-8"><p>8</p></div>
             </div>
             <div id="score-board">
-                <div><p>SCORE BOARD</p></div>
+                <div>
+                    <p>SCORE BOARD</p>
+                    <p>PLAYER 1:</p>
+                    <div id="player1-score"></div>
+                    <p>PLAYER 2:</p>
+                    <div id="player2-score"></div>
+                </div>
             </div>
             <div id="game-buttons">
-                <div><p>GAME BUTTONS</p></div>
+                <div>
+                    <p>GAME BUTTONS</p>
+                    <button id="newgame-button">NEW GAME</button>
+                </div>
             </div>
         </div>
     </div>

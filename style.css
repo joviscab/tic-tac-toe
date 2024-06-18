@@ -3,32 +3,29 @@
 #container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 2fr;
-    border: solid black 2px;
+    grid-template-rows: auto 1fr;
     font-family: Delicious Handrawn, Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px;
 }
 
 #title-bar {
     grid-row: 1 / 2;
-    border: solid red 2px;
     display: flex;
-    justify-self: center;
-    font-size: 30px;
+    justify-content: center;
+    font-size: 2rem;
     font-weight: 700;
 }
 
 #main-content {
-    border: solid blue 2px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 10fr 1fr 1fr;
-    gap: 30px;
+    grid-template-rows: auto auto auto;
+    gap: 10px;
 }
 
 #game-display {
-    grid-column: 2 / 3;
     grid-row: 1 / 2;
-    border: solid black 2px;
+    grid-column: 2 / 3;
     justify-self: center;
     font-size:30px;
 }
@@ -51,6 +48,7 @@
     font-size: 200px;
     margin: 0px;
     padding-bottom: 80px;
+    cursor: pointer;
 }
 
 .cell > p {
@@ -92,17 +90,15 @@
 }
 
 #score-board {
-    border: solid red 2px;
     grid-column: 1 / 2;
     grid-row: 2 / 3;
     justify-self: center;
-    font-size: 50px;
+    font-size: 30px;
 }
 
 #game-buttons {
-    border: solid red 2px;
     grid-column: 3 / 4;
     grid-row: 2 / 3;
     justify-self: center;
-    font-size: 50px;
+    font-size: 30px;
 }

@@ -21,6 +21,7 @@ const gameBoard = {
     playerMove: function(index, mark) {
         if (index >= 0 && index < this.board.length && typeof this.board[index] === 'number') {
             this.board[index] = mark;
+            document.getElementById(`cell-${index}`).textContent = mark;
         } else {
             console.log("Invalid move");
         }
@@ -54,6 +55,13 @@ const gameBoard = {
             3, 4, 5,
             6, 7, 8
         ];
+        this.updateDisplay();
+    },
+
+    updateDisplay() {
+        this.board.forEach((cell, index) => {
+            document.getElementById(`cell-${index}`).textContent = typeof cell === 'number' ? '' : cell;
+        });
     }
 };
 
@@ -99,6 +107,8 @@ const game = {
         this.playerTwo = players.playerTwo;
         this.currentPlayer = this.playerOne;
         this.currentMark = gameBoard.playerOneMark;
+        document.getElementById('player1-score').textContent = `${this.playerOne.name}: ${this.playerOne.getScore()}`;
+        document.getElementById('player2-score').textContent = `${this.playerTwo.name}: ${this.playerTwo.getScore()}`;
     },
 
     //alternate rounds
