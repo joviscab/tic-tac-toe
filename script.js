@@ -153,6 +153,6 @@ const game = {
 };
 
 //start game
-game.playRound();
+//game.playRound();
 
 //display DOM object

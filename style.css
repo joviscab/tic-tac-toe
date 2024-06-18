@@ -1,0 +1,108 @@
+@import '/modern-normalize.css';
+
+#container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 2fr;
+    border: solid black 2px;
+    font-family: Delicious Handrawn, Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#title-bar {
+    grid-row: 1 / 2;
+    border: solid red 2px;
+    display: flex;
+    justify-self: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+#main-content {
+    border: solid blue 2px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 10fr 1fr 1fr;
+    gap: 30px;
+}
+
+#game-display {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    border: solid black 2px;
+    justify-self: center;
+    font-size:30px;
+}
+
+#game-board {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    display: grid;
+    grid-template-columns: 180px 180px 180px;
+    grid-template-rows: 180px 180px 180px;
+}
+
+.cell {
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200px;
+    margin: 0px;
+    padding-bottom: 80px;
+}
+
+.cell > p {
+    margin: 0px;
+}
+
+.cell:hover {
+    background-color: rgba(175, 175, 175, 0.19);
+}
+
+#cell-4 {
+    border-left: solid black 2px;
+    border-right: solid black 2px;
+}
+
+#cell-1 {
+    border-left: solid black 2px;
+    border-right: solid black 2px;
+}
+
+#cell-7 {
+    border-left: solid black 2px;
+    border-right: solid black 2px;
+}
+
+#cell-3 {
+    border-top: solid black 2px;
+    border-bottom: solid black 2px;
+}
+
+#cell-4 {
+    border-top: solid black 2px;
+    border-bottom: solid black 2px;
+}
+
+#cell-5 {
+    border-top: solid black 2px;
+    border-bottom: solid black 2px;
+}
+
+#score-board {
+    border: solid red 2px;
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    justify-self: center;
+    font-size: 50px;
+}
+
+#game-buttons {
+    border: solid red 2px;
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+    justify-self: center;
+    font-size: 50px;
+}
