@@ -1,4 +1,4 @@
-// gameBoard object
+ //gameBoard object
 const gameBoard = {
     rows: 3,
     columns: 3,
@@ -10,15 +10,15 @@ const gameBoard = {
     playerOneMark: "x",
     playerTwoMark: "o",
 
-    // Print the board
+    //print the board
     printBoard() {
         console.log(this.board.slice(0, this.columns).join(" "));
         console.log(this.board.slice(this.columns, this.columns * 2).join(" "));
         console.log(this.board.slice(this.columns * 2).join(" "));
     },
 
-    // Player square selection
-    playerMove(index, mark) {
+    //player square selection
+    playerMove: function(index, mark) {
         if (index >= 0 && index < this.board.length && typeof this.board[index] === 'number') {
             this.board[index] = mark;
             document.getElementById(`cell-${index}`).textContent = mark; // Update the cell content
@@ -27,12 +27,12 @@ const gameBoard = {
         }
     },
 
-    // Check for winner
+    //check for winner
     checkWin() {
         const winPatterns = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Possible rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Possible columns
-            [0, 4, 8], [2, 4, 6]  // Possible diagonals    
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], //possible rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], //possible columns
+            [0, 4, 8], [2, 4, 6]  //possible diagonals    
         ];
 
         for (const pattern of winPatterns) {
@@ -49,7 +49,6 @@ const gameBoard = {
         return null;
     },
 
-    // Reset the board
     resetBoard() {
         this.board = [
             0, 1, 2,
@@ -59,17 +58,15 @@ const gameBoard = {
         this.updateDisplay();
     },
 
-    // Update the display of the board
-    updateDisplay() {
+        updateDisplay() {
         this.board.forEach((cell, index) => {
             document.getElementById(`cell-${index}`).textContent = typeof cell === 'number' ? '' : cell;
         });
     }
 };
 
-// playerManager object
+//players object
 const playerManager = {
-    // Create a player
     create(name) {
         let score = 0;
 
@@ -87,54 +84,37 @@ const playerManager = {
         };
     },
 
-    // Initialize players
+    //initialize players
     initializePlayers() {
-        const textArea1 = document.getElementById('player1-name');
-        const buttonTextArea1 = document.getElementById('player1-change');
-        const textArea2 = document.getElementById('player2-name');
-        const buttonTextArea2 = document.getElementById('player2-change');
+        const playerOneName = prompt("Enter Player 1 name:");
+        const playerTwoName = prompt("Enter Player 2 name:");
 
-        // Function to start the game after both player names are entered
-        const startGame = () => {
-            const playerOneName = textArea1.value.trim();
-            if (playerOneName) {
-                game.playerOne = this.create(playerOneName);
-                document.getElementById('player1-score').textContent = `${game.playerOne.name}: ${game.playerOne.getScore()}`;
-                const playerTwoName = textArea2.value.trim();
-                if (playerTwoName) {
-                    game.playerTwo = this.create(playerTwoName);
-                    document.getElementById('player2-score').textContent = `${game.playerTwo.name}: ${game.playerTwo.getScore()}`;
-                    game.playRound(); // Start the game
-                    hideNameInputs(); // Hide name inputs after game start
-                } else {
-                    alert("Player 2 name cannot be empty");
-                }
-            } else {
-                alert("Player 1 name cannot be empty");
-            }
-        };
+        const playerOne = this.create(playerOneName);
+        const playerTwo = this.create(playerTwoName);
 
-        // Event listener for setting Player 1 name
-        buttonTextArea1.addEventListener("click", startGame);
-
-        // Event listener for setting Player 2 name
-        buttonTextArea2.addEventListener("click", startGame);
+        return {playerOne, playerTwo};
     }
 };
 
-// game object
+//game object
 const game = {
     currentPlayer: null,
     currentMark: null,
     playerOne: null,
     playerTwo: null,
 
-    // Initialize players
+    //initialize players
     initializePlayers() {
-        playerManager.initializePlayers();
+        const players = playerManager.initializePlayers();
+        this.playerOne = players.playerOne;
+        this.playerTwo = players.playerTwo;
+        this.currentPlayer = this.playerOne;
+        this.currentMark = gameBoard.playerOneMark;
+        document.getElementById('player1-score').textContent = `${this.playerOne.name}: ${this.playerOne.getScore()}`;
+        document.getElementById('player2-score').textContent = `${this.playerTwo.name}: ${this.playerTwo.getScore()}`;
     },
 
-    // Alternate rounds
+    //alternate rounds
     switchPlayer() {
         if (this.currentPlayer === this.playerOne) {
             this.currentPlayer = this.playerTwo;
@@ -145,29 +125,11 @@ const game = {
         }
     },
 
-    // Reset the game
-    resetGame() {
-        gameBoard.resetBoard(); // Reset the game board
-        if (this.playerOne) {
-            this.playerOne.resetScore(); // Reset Player 1's score
-            document.getElementById('player1-score').textContent = `${this.playerOne.name}: ${this.playerOne.getScore()}`;
-        }
-        if (this.playerTwo) {
-            this.playerTwo.resetScore(); // Reset Player 2's score
-            document.getElementById('player2-score').textContent = `${this.playerTwo.name}: ${this.playerTwo.getScore()}`;
-        }
-        this.currentPlayer = this.playerOne; // Reset current player to Player 1
-        this.currentMark = gameBoard.playerOneMark; // Reset current mark to Player 1's mark
-        showNameInputs(); // Show name inputs after game reset
-    },
-
-    // Start one round
+    //start one round
     playRound() {
-        this.currentPlayer = this.playerOne;
-        this.currentMark = gameBoard.playerOneMark;
+        this.initializePlayers();
         gameBoard.updateDisplay();
 
-        // Event handler for cell clicks
         const cellClickHandler = (event) => {
             const index = parseInt(event.target.id.split('-')[1]);
             gameBoard.playerMove(index, this.currentMark);
@@ -175,9 +137,9 @@ const game = {
             if (winner) {
                 gameBoard.printBoard();
                 if (winner === 'tie') {
-                    displayGameMessage("It's a tie!");
+                    alert("It's a tie!");
                 } else {
-                    displayGameMessage(`${this.currentPlayer.name} wins!`);
+                    alert(`${this.currentPlayer.name} wins!`);
                     this.currentPlayer.addScore();
                     document.getElementById('player1-score').textContent = `${this.playerOne.name}: ${this.playerOne.getScore()}`;
                     document.getElementById('player2-score').textContent = `${this.playerTwo.name}: ${this.playerTwo.getScore()}`;
@@ -185,6 +147,8 @@ const game = {
 
                 if (confirm("Do you want to play another round?")) {
                     gameBoard.resetBoard();
+                    this.currentPlayer = this.playerOne;
+                    this.currentMark = gameBoard.playerOneMark;
                 } else {
                     document.querySelectorAll('.cell').forEach(cell => cell.removeEventListener('click', cellClickHandler));
                 }
@@ -193,44 +157,27 @@ const game = {
             }
         };
 
-        // Attach click event listeners to each cell
         document.querySelectorAll('.cell').forEach(cell => {
             cell.addEventListener('click', cellClickHandler);
         });
 
-        // Event listener for new round button
         document.getElementById('newround-button').addEventListener('click', () => {
-            gameBoard.resetBoard(); // Reset the game board for a new round
+            gameBoard.resetBoard();
+            this.currentPlayer = this.playerOne;
+            this.currentMark = gameBoard.playerOneMark;
         });
 
-        // Event listener for new game button
         document.getElementById('newgame-button').addEventListener('click', () => {
-            this.resetGame(); // Reset both board and scoreboard for a new game
+            gameBoard.resetBoard();
+            this.playerOne.resetScore();
+            this.playerTwo.resetScore();
+            document.getElementById('player1-score').textContent = `${this.playerOne.name}: ${this.playerOne.getScore()}`;
+            document.getElementById('player2-score').textContent = `${this.playerTwo.name}: ${this.playerTwo.getScore()}`;
+            this.currentPlayer = this.playerOne;
+            this.currentMark = gameBoard.playerOneMark;
         });
     }
 };
 
-// Function to display game messages in the "GAME DISPLAY" section
-function displayGameMessage(message) {
-    const gameDisplay = document.getElementById('display-result');
-    gameDisplay.textContent = message;
-}
-
-// Function to hide name input fields and buttons
-function hideNameInputs() {
-    document.getElementById('player1-name').style.display = 'none';
-    document.getElementById('player1-change').style.display = 'none';
-    document.getElementById('player2-name').style.display = 'none';
-    document.getElementById('player2-change').style.display = 'none';
-}
-
-// Function to show name input fields and buttons
-function showNameInputs() {
-    document.getElementById('player1-name').style.display = 'block';
-    document.getElementById('player1-change').style.display = 'inline-block';
-    document.getElementById('player2-name').style.display = 'block';
-    document.getElementById('player2-change').style.display = 'inline-block';
-}
-
-// Initialize players
-game.initializePlayers();
+//start game
+game.playRound();
