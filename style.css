@@ -16,7 +16,7 @@ body {
     grid-row: 1 / 2;
     display: flex;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
 }
 
@@ -28,7 +28,6 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto auto auto auto;
-    gap: 10px;
 }
 
 #game-display {
