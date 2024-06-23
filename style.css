@@ -133,3 +133,13 @@ body {
     margin: 0;
     justify-content: center;
 }
+
+#newgame-button {
+    font-family: Delicious Handrawn, Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+}
+
+#newround-button {
+    font-family: Delicious Handrawn, Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
+}
