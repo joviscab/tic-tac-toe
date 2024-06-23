@@ -55,6 +55,7 @@ body {
     font-size: 200px;
     margin: 0px;
     cursor: pointer;
+    padding-bottom: 85px;
 }
 
 .cell > p {
@@ -99,14 +100,14 @@ body {
     grid-column: 1 / 2;
     grid-row: 2 / 3;
     justify-self: center;
-    font-size: 30px;
+    font-size: 50px;
 }
 
 #score-board-right {
     grid-column: 3 / 4;
     grid-row: 2 / 3;
     justify-self: center;
-    font-size: 30px;
+    font-size: 50px;
 }
 
 #game-buttons-right {
