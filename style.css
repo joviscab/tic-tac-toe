@@ -21,8 +21,6 @@ body {
 }
 
 #title-bar > h1{
-    border-bottom: dashed black 2px;
-    border-top: dashed black 2px;
     margin: 0;
 }
 
@@ -103,7 +101,6 @@ body {
     grid-row: 2 / 3;
     justify-self: center;
     font-size: 30px;
-    
 }
 
 #score-board-right {
@@ -127,4 +124,13 @@ body {
     justify-self: center;
     align-self: center;
     font-size: 30px;
+}
+
+#display-result {
+    display: flex;
+    font-size: 50px;
+    width: 400px;
+    height: 60px;
+    margin: 0;
+    justify-content: center;
 }
